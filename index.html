@@ -121,7 +121,7 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
 
 <footer><div class="wrap foot-in">
   <div>© 1968–2026 Umbrella Corporation, Московское отделение<br>Лицензия № Т-0013-1998</div>
-  <div>3210 (с мобильного) · +7 (495) 539-5454 (с городского)<br>umbrella-corporation.moscow</div>
+  <div>1998 (с мобильного) · +7 (495) 001-1998 (с городского)<br>umbrella-corporation.moscow</div>
   <div class="fineprint">Перевозчик не несёт ответственности за трансформацию держателя карты во время поездки. B.O.W.-2.</div>
 </div></footer>
 
@@ -150,7 +150,7 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <script>
-const SECRET = "NEMESIS-1998"; // ← должно совпадать с текстом, зашитым в ваш штрих-код
+const SECRET = "NEMESIS"; // ← должно совпадать с текстом, зашитым в ваш штрих-код
 const overlay = document.getElementById('overlay');
 const login = document.getElementById('modalLogin');
 const termM = document.getElementById('modalTerminal');
@@ -166,7 +166,7 @@ document.getElementById('visually').addEventListener('click', e => { e.preventDe
 // пасхалка для самых внимательных: 7 кликов по логотипу
 let clicks = 0;
 document.getElementById('logo').addEventListener('click', () => {
-  if (++clicks === 7) alert('Раккун-Сити помнит. 01.10.1998.');
+  if (++clicks === 7) alert('Раккун-Сити. 01.10.1998.');
 });
 
 // ручной ввод кода
