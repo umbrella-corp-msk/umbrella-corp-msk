@@ -51,7 +51,7 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
 <body>
 
 <div class="govbar">
-  <span>Официальный ресурс Московского отделения · данные от 07.09.2026</span>
+  <span>Официальный ресурс Московского отделения · данные от 08.09.2026</span>
   <a href="#" id="visually">Версия для слабовидящих</a>
   <span>Контакт-центр: 1998</span>
 </div>
@@ -181,8 +181,8 @@ document.getElementById('barcodeFile').addEventListener('change', async e => {
   if (!file) return;
   status.textContent = 'АНАЛИЗ ОБРАЗЦА...';
 
-  // Создаём ВИДИМЫЙ, но уведенный за экран контейнер (критично для html5-qrcode)
   const tempDiv = document.createElement('div');
+  tempDiv.id = 'reader-' + Date.now();
   tempDiv.style.position = 'fixed';
   tempDiv.style.left = '-9999px';
   tempDiv.style.top = '0';
@@ -190,45 +190,55 @@ document.getElementById('barcodeFile').addEventListener('change', async e => {
   tempDiv.style.height = '240px';
   document.body.appendChild(tempDiv);
 
+  let scannerConfig = {};
+  if (typeof Html5QrcodeSupportedFormats !== 'undefined') {
+    scannerConfig.formatsToSupport = [
+      Html5QrcodeSupportedFormats.CODE_128,
+      Html5QrcodeSupportedFormats.CODE_39,
+      Html5QrcodeSupportedFormats.EAN_13,
+      Html5QrcodeSupportedFormats.EAN_8,
+      Html5QrcodeSupportedFormats.UPC_A,
+      Html5QrcodeSupportedFormats.QR_CODE,
+      Html5QrcodeSupportedFormats.DATA_MATRIX
+    ];
+  }
+
+  const tryScan = async (src, label) => {
+    const scanner = new Html5Qrcode(tempDiv.id, scannerConfig);
+    try {
+      const result = await scanner.scanFileV2(src, true);
+      console.log(`[${label}] result:`, result);
+      return result;
+    } finally {
+      try { await scanner.clear(); } catch(_) {}
+    }
+  };
+
   try {
     const processedSrc = await preprocessImage(file);
-    const scanner = new Html5Qrcode(tempDiv);
+    let result = await tryScan(processedSrc, 'processed');
 
-    // Явно указываем форматы — иначе библиотека может искать только QR
-    const result = await scanner.scanFileV2(processedSrc, true, {
-      formatsToSupport: [
-        Html5QrcodeSupportedFormats.CODE_128,
-        Html5QrcodeSupportedFormats.CODE_39,
-        Html5QrcodeSupportedFormats.EAN_13,
-        Html5QrcodeSupportedFormats.EAN_8,
-        Html5QrcodeSupportedFormats.UPC_A,
-        Html5QrcodeSupportedFormats.QR_CODE,
-        Html5QrcodeSupportedFormats.DATA_MATRIX
-      ]
-    });
+    if (!result || !result.text) {
+      result = await tryScan(file, 'original');
+    }
+
+    if (!result || !result.text) {
+      const scanner3 = new Html5Qrcode(tempDiv.id, scannerConfig);
+      try {
+        result = await scanner3.scanFileV2(file, false);
+      } finally {
+        try { await scanner3.clear(); } catch(_) {}
+      }
+    }
 
     if (result && result.text) {
       check(result.text.trim().toUpperCase(), true);
     } else {
-      status.textContent = 'ОБРАЗЕЦ ПОВРЕЖДЁН. ПРОВЕРЬТЕ ОСВЕЩЕНИЕ И ПОВТОРИТЕ СКАНИРОВАНИЕ.';
+      status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ПОПРОБУЙТЕ СФОТОГРАФИРОВАТЬ КРУПНЕЕ И БЕЗ БЛИКОВ.';
     }
-    await scanner.clear();
   } catch (err) {
-    console.error('Scan error:', err);
-    // Fallback: пробуем без preprocessing
-    try {
-      const scanner2 = new Html5Qrcode(tempDiv);
-      const result2 = await scanner2.scanFileV2(file, true);
-      if (result2 && result2.text) {
-        check(result2.text.trim().toUpperCase(), true);
-      } else {
-        status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ПОПРОБУЙТЕ СФОТОГРАФИРОВАТЬ КРУПНЕЕ И БЕЗ БЛИКОВ.';
-      }
-      await scanner2.clear();
-    } catch (err2) {
-      console.error('Fallback error:', err2);
-      status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ВВЕДИТЕ КОД ВРУЧНУЮ.';
-    }
+    console.error('Critical scan error:', err);
+    status.textContent = 'ОШИБКА МОДУЛЯ РАСПОЗНАВАНИЯ. ВВЕДИТЕ КОД ВРУЧНУЮ.';
   } finally {
     tempDiv.remove();
   }
