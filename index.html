@@ -51,7 +51,7 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
 <body>
 
 <div class="govbar">
-  <span>Официальный ресурс Московского отделения · данные от 08.09.2026</span>
+  <span>Официальный ресурс Московского отделения · данные от 09.09.2026</span>
   <a href="#" id="visually">Версия для слабовидящих</a>
   <span>Контакт-центр: 1998</span>
 </div>
@@ -215,33 +215,34 @@ document.getElementById('barcodeFile').addEventListener('change', async e => {
   };
 
   try {
-    const processedSrc = await preprocessImage(file);
-    let result = await tryScan(processedSrc, 'processed');
+  const processedSrc = await preprocessImage(file);
+  let result = await tryScan(processedSrc, 'processed');
 
-    if (!result || !result.text) {
-      result = await tryScan(file, 'original');
-    }
-
-    if (!result || !result.text) {
-      const scanner3 = new Html5Qrcode(tempDiv.id, scannerConfig);
-      try {
-        result = await scanner3.scanFileV2(file, false);
-      } finally {
-        try { await scanner3.clear(); } catch(_) {}
-      }
-    }
-
-    if (result && result.text) {
-      check(result.text.trim().toUpperCase(), true);
-    } else {
-      status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ПОПРОБУЙТЕ СФОТОГРАФИРОВАТЬ КРУПНЕЕ И БЕЗ БЛИКОВ.';
-    }
-  } catch (err) {
-    console.error('Critical scan error:', err);
-    status.textContent = 'ОШИБКА МОДУЛЯ РАСПОЗНАВАНИЯ. ВВЕДИТЕ КОД ВРУЧНУЮ.';
-  } finally {
-    tempDiv.remove();
+  if (!(result && (result.decodedText || result.text))) {
+    result = await tryScan(file, 'original');
   }
+
+  if (!(result && (result.decodedText || result.text))) {
+    const scanner3 = new Html5Qrcode(tempDiv.id, scannerConfig);
+    try {
+      result = await scanner3.scanFileV2(file, false);
+    } finally {
+      try { await scanner3.clear(); } catch(_) {}
+    }
+  }
+
+  const decoded = result && (result.decodedText || result.text);
+  if (decoded) {
+    check(String(decoded).trim().toUpperCase(), true);
+  } else {
+    status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ПОПРОБУЙТЕ СФОТОГРАФИРОВАТЬ КРУПНЕЕ И БЕЗ БЛИКОВ.';
+  }
+} catch (err) {
+  console.error('Critical scan error:', err);
+  status.textContent = 'ОШИБКА МОДУЛЯ РАСПОЗНАВАНИЯ. ВВЕДИТЕ КОД ВРУЧНУЮ.';
+} finally {
+  tempDiv.remove();
+}
 });
 
 // Вспомогательная функция: мягкий контраст без жёсткой бинаризации
