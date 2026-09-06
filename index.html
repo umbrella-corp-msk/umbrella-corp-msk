@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umbrella Corporation — Московское отделение | Официальный сайт</title>
+<meta name="description" content="Официальный оператор линий МЦК и МЦД. Наш бизнес — сама жизнь.">
+<style>
+:root{--red:#d40000;--ink:#101114;--bg:#f5f5f4;--line:#d9d9d9}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+body.bw{filter:grayscale(1) contrast(1.1)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.govbar{background:#111;color:#bbb;font-size:12px;padding:6px 16px;letter-spacing:.06em;display:flex;gap:16px;flex-wrap:wrap}
+.govbar a{color:#bbb}
+header{background:#fff;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:5}
+.header-in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;flex-wrap:wrap}
+.brand{display:flex;gap:12px;align-items:center;cursor:pointer}
+.brand-name{font-weight:800;letter-spacing:.18em}
+.brand-sub{font-size:12px;color:#777;letter-spacing:.08em}
+nav{display:flex;gap:14px;align-items:center;font-size:13px;flex-wrap:wrap}
+nav a{color:#333;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}
+nav a:hover{color:var(--red)}
+.btn{background:var(--red);color:#fff;border:0;padding:12px 22px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;cursor:pointer;font-size:13px}
+.btn.ghost{background:transparent;color:var(--red);border:2px solid var(--red);text-decoration:none;display:inline-block}
+.hero{background:#fff;padding:56px 0 44px;border-bottom:1px solid var(--line)}
+h1{font-size:32px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 16px}
+h2{text-transform:uppercase;letter-spacing:.12em;border-left:4px solid var(--red);padding-left:12px;margin:44px 0 20px;font-size:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--red);padding:18px}
+.card h3{margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
+.card p{margin:0;font-size:14px;color:#444;line-height:1.55}
+time{color:var(--red);font-weight:700;font-size:12px;letter-spacing:.1em}
+.jobs li{margin:10px 0;font-size:14px;color:#444;line-height:1.5}
+.fineprint{font-size:11px;color:#999;line-height:1.6}
+footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
+.foot-in{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.overlay[hidden]{display:none}
+.modal{background:#fff;padding:28px;max-width:440px;width:100%;position:relative;border-top:4px solid var(--red)}
+.modal h3{margin:0 0 8px;text-transform:uppercase;letter-spacing:.12em}
+.modal input{width:100%;padding:12px;border:1px solid var(--line);margin:8px 0;font-size:14px;letter-spacing:.08em}
+.status{min-height:20px;font-size:13px;color:var(--red);font-weight:700}
+.or{text-align:center;color:#aaa;font-size:12px;margin:12px 0}
+.filebtn{display:inline-block;border:1px dashed #999;padding:10px 14px;cursor:pointer;font-size:13px;color:#555}
+.terminal{background:#000;color:#33ff66;font-family:"Courier New",monospace}
+.terminal pre{white-space:pre-wrap;font-size:13px;line-height:1.55;min-height:260px}
+.close{position:absolute;top:6px;right:12px;background:none;border:0;font-size:24px;cursor:pointer;color:inherit}
+</style>
+</head>
+<body>
+
+<div class="govbar">
+  <span>Официальный ресурс Московского отделения · данные от 05.09.2026</span>
+  <a href="#" id="visually">Версия для слабовидящих</a>
+  <span>Контакт-центр: 3210</span>
+</div>
+
+<header><div class="wrap header-in">
+  <div class="brand" id="logo">
+    <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 50 L100 50 A50 50 0 0 1 85.36 85.36 Z" fill="#d40000"/>
+      <path d="M50 50 L85.36 85.36 A50 50 0 0 1 50 100 Z" fill="#fff"/>
+      <path d="M50 50 L50 100 A50 50 0 0 1 14.64 85.36 Z" fill="#d40000"/>
+      <path d="M50 50 L14.64 85.36 A50 50 0 0 1 0 50 Z" fill="#fff"/>
+      <path d="M50 50 L0 50 A50 50 0 0 1 14.64 14.64 Z" fill="#d40000"/>
+      <path d="M50 50 L14.64 14.64 A50 50 0 0 1 50 0 Z" fill="#fff"/>
+      <path d="M50 50 L50 0 A50 50 0 0 1 85.36 14.64 Z" fill="#d40000"/>
+      <path d="M50 50 L85.36 14.64 A50 50 0 0 1 100 50 Z" fill="#fff"/>
+      <circle cx="50" cy="50" r="49" fill="none" stroke="#111" stroke-width="2"/>
+    </svg>
+    <div>
+      <div class="brand-name">UMBRELLA CORPORATION</div>
+      <div class="brand-sub">Московское отделение · осн. 1968</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#services">Сервисы</a>
+    <a href="#news">Новости</a>
+    <a href="#careers">Карьера</a>
+    <a href="#" class="openAccess">Служебный вход</a>
+  </nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>Москва движется под защитой Umbrella</h1>
+  <p>Официальный оператор линий <b>Московского Центрального Карантина (МЦК)</b> и <b>Московских Центральных Дезинфекций (МЦД)</b>. Ваша карта «Тройка» — не просто проездной, а протокол биологической защиты.</p>
+  <p style="margin:20px 0">
+    <button class="btn openAccess">Проверить свою карту</button>
+    <a class="btn ghost" href="#news" style="margin-left:8px">Сводка по периметру</a>
+  </p>
+  <p class="fineprint">Используя карту, вы автоматически соглашаетесь на участие в программе вакцинации (пункт 13 оферты). Отказ будет зафиксирован.</p>
+</div></section>
+
+<section id="services" class="wrap">
+  <h2>Сервисы и продукты</h2>
+  <div class="cards">
+    <div class="card"><h3>«Тройка · Umbrella»</h3><p>Беззалоговый проезд в течение 5 лет с момента последнего использования — или до трансформации держателя, в зависимости от того, что наступит раньше.</p></div>
+    <div class="card"><h3>Вакцина серии «Т»</h3><p>Бесплатная вакцинация на всех станциях метро. Партия T-1998. Побочные эффекты перечислены в Приложении № 4. Приложение засекречено.</p></div>
+    <div class="card"><h3>U.B.C.S. «Сопровождение»</h3><p>Специальные подразделения для поддержки пассажиров в часы пик. При виде подразделения сохраняйте спокойствие. Не бегите.</p></div>
+  </div>
+</section>
+
+<section id="news" class="wrap">
+  <h2>Пресс-центр периметра</h2>
+  <div class="cards">
+    <div class="card"><time>19.08.2026</time><p>Вакцинация продолжается. Отказавшиеся граждане будут отмечены в системе лояльности "Наш бизнес — сама жизнь"</p></div>
+    <div class="card"><time>24.07.2026</time><p>Для усиления периметра МЦК привлечены подразделения «Цербер». Убедительная просьба не кормить патрульных.</p></div>
+    <div class="card"><time>05.09.2026</time><p>Учения по эвакуации «Раккун-2» запланированы на 1 октября. Сохраняйте спокойствие. Это учения. Это учения.</p></div>
+  </div>
+</section>
+
+<section id="careers" class="wrap">
+  <h2>Карьера в Корпорации</h2>
+  <ul class="jobs">
+    <li><b>Испытуемый</b> (дневная смена). З/п по итогам смены. Питание включено. Побочные эффекты обсуждаемы.</li>
+    <li><b>Кинолог подразделения «Цербер»</b>. Требования: отсутствие страха перед собаками. Или перед тем, что от них осталось.</li>
+    <li><b>Лаборант ночной смены, объект «Улей»</b>. Непосредственный руководитель — ИИ «Красная Королева». Пунктуальность обязательна: двери гермозакрывающиеся.</p></li>
+  </ul>
+</section>
+
+<footer><div class="wrap foot-in">
+  <div>© 1968–2026 Umbrella Corporation, Московское отделение<br>Лицензия № Т-0013-1998</div>
+  <div>3210 (с мобильного) · +7 (495) 539-5454 (с городского)<br>umbrella-corporation.moscow</div>
+  <div class="fineprint">Перевозчик не несёт ответственности за трансформацию держателя карты во время поездки. B.O.W.-2.</div>
+</div></footer>
+
+<!-- СЛУЖЕБНЫЙ ВХОД -->
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modalLogin">
+    <button class="close" data-close>×</button>
+    <h3>Внутренняя сеть Umbrella</h3>
+    <p class="fineprint">Для сотрудников и держателей карт. Введите код допуска либо загрузите фото штрих-кода с оборотной стороны карты.</p>
+    <form id="codeForm">
+      <input id="codeInput" placeholder="КОД ДОПУСКА" autocomplete="off">
+      <button class="btn" type="submit" style="width:100%">Войти</button>
+    </form>
+    <div class="or">— или —</div>
+    <label class="filebtn">📷 Загрузить фото штрих-кода
+      <input type="file" id="barcodeFile" accept="image/*" hidden>
+    </label>
+    <p class="status" id="status"></p>
+  </div>
+
+  <div class="modal terminal" id="modalTerminal" hidden>
+    <button class="close" data-close>×</button>
+    <pre id="term"></pre>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script>
+const SECRET = "NEMESIS-1998"; // ← должно совпадать с текстом, зашитым в ваш штрих-код
+const overlay = document.getElementById('overlay');
+const login = document.getElementById('modalLogin');
+const termM = document.getElementById('modalTerminal');
+const status = document.getElementById('status');
+
+document.querySelectorAll('.openAccess').forEach(b => b.addEventListener('click', e => {
+  e.preventDefault(); overlay.hidden = false; login.hidden = false; termM.hidden = true; status.textContent = '';
+}));
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => overlay.hidden = true));
+
+document.getElementById('visually').addEventListener('click', e => { e.preventDefault(); document.body.classList.toggle('bw'); });
+
+// пасхалка для самых внимательных: 7 кликов по логотипу
+let clicks = 0;
+document.getElementById('logo').addEventListener('click', () => {
+  if (++clicks === 7) alert('Раккун-Сити помнит. 01.10.1998.');
+});
+
+// ручной ввод кода
+document.getElementById('codeForm').addEventListener('submit', e => {
+  e.preventDefault();
+  check(document.getElementById('codeInput').value.trim().toUpperCase());
+});
+
+// декодирование штрих-кода из загруженного фото
+document.getElementById('barcodeFile').addEventListener('change', e => {
+  const file = e.target.files[0]; if (!file) return;
+  if (typeof Quagga === 'undefined') { status.textContent = 'МОДУЛЬ РАСПОЗНАВАНИЯ НЕДОСТУПЕН. ВВЕДИТЕ КОД ВРУЧНУЮ.'; return; }
+  status.textContent = 'АНАЛИЗ ОБРАЗЦА...';
+  const reader = new FileReader();
+  reader.onload = ev => Quagga.decodeSingle({
+    src: ev.target.result, numOfWorkers: 0, locate: true,
+    decoder: { readers: ["code_128_reader", "code_39_reader", "ean_reader"] }
+  }, res => {
+    if (res && res.codeResult) check(String(res.codeResult.code).trim().toUpperCase(), true);
+    else status.textContent = 'ОБРАЗЕЦ ПОВРЕЖДЁН. ПРОВЕРЬТЕ ОСВЕЩЕНИЕ И ПОВТОРИТЕ СКАНИРОВАНИЕ.';
+  });
+  reader.readAsDataURL(file);
+});
+
+function check(code, fromScan) {
+  if (code === SECRET) grant();
+  else status.textContent = (fromScan ? 'СЧИТАНО: ' + code + '. ' : '') + 'ДОСТУП ЗАПРЕЩЁН. ПОПЫТКА ЗАФИКСИРОВАНА. ГРУППА U.B.C.S. УЖЕ В ПУТИ.';
+}
+
+function grant() {
+  login.hidden = true; termM.hidden = false;
+  const LINES =
+`> UMBRELLA OS v.19.98
+> СОЕДИНЕНИЕ С УЗЛОМ «УЛЕЙ»... УСТАНОВЛЕНО
+> СУБЪЕКТ: № 3911-721-353
+> СТАТУС: ЗАРАЖЁН (ЛАТЕНТНАЯ ФАЗА)
+
+> ДИРЕКТИВА 1001: не покидайте периметр МЦК.
+> ДИРЕКТИВА 1002: не кормите подразделения «Цербер».
+> ДИРЕКТИВА 1003: 1 октября оставайтесь дома. Не подходите к окнам.
+
+> ЛИЧНОЕ ДЕЛО: [РАССЕКРЕЧЕНО]
+> ...
+> Добро пожаловать. Наш бизнес — сама жизнь.`;
+  const term = document.getElementById('term'); term.textContent = '';
+  let i = 0; const t = setInterval(() => { term.textContent = LINES.slice(0, ++i); if (i >= LINES.length) clearInterval(t); }, 12);
+}
+
+// пасхалка в консоли
+console.log("%cUMBRELLA CORPORATION%c Наш бизнес — сама жизнь.", "color:#d40000;font-weight:bold;font-size:14px", "color:#888");
+console.log("Имя Преследователя и год падения города, через дефис???");
+</script>
+</body>
+</html>
