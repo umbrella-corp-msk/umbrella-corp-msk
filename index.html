@@ -124,7 +124,9 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
   <div>1998 (с мобильного) · +7 (495) 001-1998 (с городского)<br>umbrella-corporation.moscow</div>
   <div class="fineprint">Перевозчик не несёт ответственности за трансформацию держателя карты во время поездки. B.O.W.-2.</div>
 </div></footer>
-
+  
+<div id="reader-temp" style="display:none"></div>
+  
 <!-- СЛУЖЕБНЫЙ ВХОД -->
 <div class="overlay" id="overlay" hidden>
   <div class="modal" id="modalLogin">
@@ -148,7 +150,7 @@ footer{background:#111;color:#999;margin-top:56px;padding:28px 0;font-size:13px}
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
 const SECRET = "NEMESIS"; // ← должно совпадать с текстом, зашитым в ваш штрих-код
 const overlay = document.getElementById('overlay');
@@ -176,20 +178,60 @@ document.getElementById('codeForm').addEventListener('submit', e => {
 });
 
 // декодирование штрих-кода из загруженного фото
-document.getElementById('barcodeFile').addEventListener('change', e => {
-  const file = e.target.files[0]; if (!file) return;
-  if (typeof Quagga === 'undefined') { status.textContent = 'МОДУЛЬ РАСПОЗНАВАНИЯ НЕДОСТУПЕН. ВВЕДИТЕ КОД ВРУЧНУЮ.'; return; }
+document.getElementById('barcodeFile').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  if (!file) return;
   status.textContent = 'АНАЛИЗ ОБРАЗЦА...';
-  const reader = new FileReader();
-  reader.onload = ev => Quagga.decodeSingle({
-    src: ev.target.result, numOfWorkers: 0, locate: true,
-    decoder: { readers: ["code_128_reader", "code_39_reader", "ean_reader"] }
-  }, res => {
-    if (res && res.codeResult) check(String(res.codeResult.code).trim().toUpperCase(), true);
-    else status.textContent = 'ОБРАЗЕЦ ПОВРЕЖДЁН. ПРОВЕРЬТЕ ОСВЕЩЕНИЕ И ПОВТОРИТЕ СКАНИРОВАНИЕ.';
-  });
-  reader.readAsDataURL(file);
+
+  try {
+    // Preprocessing: повышаем контраст перед распознаванием
+    const processedSrc = await preprocessImage(file);
+
+    const scanner = new Html5Qrcode("reader-temp");
+    const result = await scanner.scanFileV2(processedSrc, true);
+
+    if (result && result.text) {
+      check(result.text.trim().toUpperCase(), true);
+    } else {
+      status.textContent = 'ОБРАЗЕЦ ПОВРЕЖДЁН. ПРОВЕРЬТЕ ОСВЕЩЕНИЕ И ПОВТОРИТЕ СКАНИРОВАНИЕ.';
+    }
+    scanner.clear();
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'ОБРАЗЕЦ НЕ РАСПОЗНАН. ПОПРОБУЙТЕ СФОТОГРАФИРОВАТЬ КРУПНЕЕ И БЕЗ БЛИКОВ.';
+  }
 });
+
+// Вспомогательная функция: grayscale + contrast boost
+function preprocessImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      // Grayscale + пороговый контраст (binarization)
+      for (let i = 0; i < data.length; i += 4) {
+        const gray = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
+        const bw = gray > 128 ? 255 : 0; // жёсткий порог для штрих-кодов
+        data[i] = data[i+1] = data[i+2] = bw;
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      canvas.toBlob(blob => {
+        resolve(new File([blob], file.name, { type: 'image/png' }));
+      }, 'image/png');
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
 
 function check(code, fromScan) {
   if (code === SECRET) grant();
